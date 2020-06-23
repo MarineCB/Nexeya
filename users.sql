@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 05 mai 2020 à 19:52
+-- Généré le :  Dim 14 juin 2020 à 19:33
 -- Version du serveur :  10.3.14-MariaDB
 -- Version de PHP :  7.2.18
 
@@ -31,45 +31,20 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `status` enum('Commandé','En attente de validation','Livré','') COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `product_fk` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `orders`
 --
 
-INSERT INTO `orders` (`id`, `status`) VALUES
-(1, 'En attente de validation'),
-(2, 'Commandé');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `order_items`
---
-
-DROP TABLE IF EXISTS `order_items`;
-CREATE TABLE IF NOT EXISTS `order_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_fk` (`product_id`),
-  KEY `order_fk` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Déchargement des données de la table `order_items`
---
-
-INSERT INTO `order_items` (`id`, `product_id`, `order_id`) VALUES
-(1, 5, 1),
-(2, 2, 1),
-(3, 5, 1),
-(4, 2, 1),
-(5, 1, 2),
-(6, 3, 2);
+INSERT INTO `orders` (`id`, `product_id`, `quantity`, `status`) VALUES
+(1, 2, 10, 'En attente de validation'),
+(2, 1, 2, 'Commandé');
 
 -- --------------------------------------------------------
 
@@ -130,10 +105,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `user_type`) VALUES
 --
 
 --
--- Contraintes pour la table `order_items`
+-- Contraintes pour la table `orders`
 --
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+ALTER TABLE `orders`
   ADD CONSTRAINT `product_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 COMMIT;
 

@@ -8,7 +8,6 @@ class Login{
 	}
 	
 	public function ConnectionAttempt(){
-		echo 'check';
 		if(!(isset($_POST['login']) && !empty($_POST['login'])
 		&& isset($_POST['password']) && !empty($_POST['password']))){
 			redirect('Login');

@@ -36,3 +36,15 @@ function redirect($controller,$method= "",$args = array())
 function isAdmin(){
 	return isset($_SESSION['userStatus']) && !empty($_SESSION['userStatus']) && ($_SESSION['userStatus'] == 'admin');
 }
+
+function isSalesman(){
+    return isset($_SESSION['userStatus']) && !empty($_SESSION['userStatus']) && ($_SESSION['userStatus'] == 'commercial');
+}
+
+function isSalesmanager(){
+    return isset($_SESSION['userStatus']) && !empty($_SESSION['userStatus']) && ($_SESSION['userStatus'] == 'responsable-commercial');
+}
+
+function isMeca(){
+    return isset($_SESSION['userStatus']) && !empty($_SESSION['userStatus']) && ($_SESSION['userStatus'] == 'meca');
+}

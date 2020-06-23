@@ -34,8 +34,12 @@ if(!empty($params[0])){
 				redirect('Login'); //envoyer sur 404 plutot que redirect ???
 		break;
 
-		case 'deleteUser':
-			echo 'delete user';
+		case 'Profile':
+			session_start();
+			if(isset($_SESSION['login'])){
+				$controller->index();
+			}else
+				redirect('Login');
 		break;
 		default:
 			http_response_code(404);
@@ -45,5 +49,5 @@ if(!empty($params[0])){
 }elseif (session_start() && !isset($_SESSION['login'])){
 	redirect('Login');
 }else{
-	redirect('Home');
+	//redirect('Home');
 }
