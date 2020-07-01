@@ -16,7 +16,10 @@ class Login{
 		require_once('Model/Auth.php');
 		init_user_session();
 
-		(new Auth())->checkCreds();
+		$log = $_POST['login'];
+		$pw = hash('sha256',$_POST['password']);
+		$_POST['password'] = null;
+		(new Auth())->checkCreds($log, $pw);
 		if(!isset($_SESSION['login']) || !isset($_SESSION['userStatus']))
 			redirect('Login');
 		else

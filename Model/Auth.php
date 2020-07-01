@@ -18,13 +18,13 @@ class Auth{
 		}
 	}
 
-	public function checkCreds(){
+	public function checkCreds($login, $password){
 		$this->getDb();
 		#Hash le password
-		$password = hash('sha256',$_POST['password']);
-		$_POST['password']=null;
+		//$password = hash('sha256',$_POST['password']);
+		//$_POST['password']=null;
 
-		$login = $_POST['login'];
+		//$login = $_POST['login'];
 
 		$SQL= "SELECT DISTINCT user_type FROM users WHERE username=? AND password=? ";
 		$result = $this->db->prepare($SQL);
@@ -41,6 +41,8 @@ class Auth{
 			}
 		}
 		$result ->closeCursor();		
+		if($count == 1)
+			return true;
 	}
 
 	public function getUsersList(){
@@ -195,4 +197,20 @@ class Auth{
 		}
 	}
 
+	public function changePassword($login, $oldPw, $newPw){
+		if(!$this->checkCreds($login, $oldPw))
+			echo 'Old password incorrect';
+		else{
+			$this->getDb();
+			$SQL= "UPDATE users SET password = ? WHERE username =? AND password = ?";
+			$result = $this->db->prepare($SQL);
+			$result->bindParam(1, $newPw);
+			$result->bindParam(2, $login);
+			$result->bindParam(3, $oldPw);
+			if($result->execute()){
+				echo 'success password changed';
+			}else
+				echo 'Error: password not changed';
+	    }
+	}
 }

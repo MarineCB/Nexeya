@@ -12,12 +12,12 @@ ob_start(); ?>
 			<input type="text" value=<?=$_SESSION['login']?> class="form-control" name="readonlyUsername" id="readonlyUsername" placeholder="Enter product name" readonly>
 		</div>
 		<div class="form-group">
-			<label for="inputPassword1">Old password</label>
-			<input type="password" class="form-control" name="inputPassword1" id="inputPassword1" placeholder="Password" required>
+			<label for="inputOldPassword">Old password</label>
+			<input type="password" class="form-control" name="inputOldPassword" id="inputOldPassword" placeholder="Password" required>
 		</div>
 		<div class="form-group">
-			<label for="inputPassword2">New password</label>
-			<input type="password" class="form-control" name="inputPassword2" id="inputPassword2" placeholder="Password" required>
+			<label for="inputNewPassword">New password</label>
+			<input type="password" class="form-control" name="inputNewPassword" id="inputNewPassword" placeholder="Password" required>
 		</div>
 		<br/>
 		<br/>
